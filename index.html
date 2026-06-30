@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AAI Training Centre Dashboard</title>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">AAI Training Centre</div>
+
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Trainings</a></li>
+                <li><a href="#">Facilities</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Scrolling Ticker -->
+    <div class="ticker">
+        <div class="ticker-content">
+            Upcoming: Safety Training - Delhi | Fire Drill - Mumbai | First Aid - Lucknow
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Welcome to AAI Training Centre Dashboard</h1>
+        <p>Centralized platform for managing training across 130 stations.</p>
+    </section>
+
+    <!-- Login Section -->
+    <div id="loginPage" class="login-box">
+        <h2>Login</h2>
+
+        <input type="text" id="email" placeholder="Email">
+        <input type="password" id="password" placeholder="Password">
+
+        <div>
+            <button onclick="employeeLogin()">Employee Login</button>
+            <button onclick="adminLogin()">Admin Login</button>
+        </div>
+    </div>
+
+    <!-- Employee Dashboard -->
+    <div id="employeePage" class="dashboard">
+        <h2>Employee Dashboard</h2>
+
+        <div class="card">
+            <h3>Available Trainings</h3>
+            <div id="trainings"></div>
+        </div>
+
+        <div class="card">
+            <h3>Your Applications</h3>
+            <div id="myApplications"></div>
+        </div>
+
+        <button onclick="logout()">Logout</button>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="adminPage" class="dashboard">
+        <h2>Admin Dashboard</h2>
+
+        <div class="card">
+            <h3>Pending Applications</h3>
+            <div id="applications"></div>
+        </div>
+
+        <button onclick="logout()">Logout</button>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>AAI Training Centre | Lucknow, Uttar Pradesh</p>
+        <p>© 2026 Airports Authority of India</p>
+    </footer>
+
+    <!-- External JavaScript -->
+    <script src="script.js"></script>
+
+</body>
+</html>
