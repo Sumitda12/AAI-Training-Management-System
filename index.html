@@ -1,91 +1,427 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>AAI Training Centre Dashboard</title>
 
-    <!-- External CSS -->
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AAI Training Management System</title>
+
     <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
 </head>
+
 <body>
 
-    <!-- Header -->
-    <header>
-        <div class="logo">AAI Training Centre</div>
+<!-- ================= HEADER ================= -->
 
-        <nav>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Trainings</a></li>
-                <li><a href="#">Facilities</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+<header>
 
-    <!-- Scrolling Ticker -->
-    <div class="ticker">
-        <div class="ticker-content">
-            Upcoming: Safety Training - Delhi | Fire Drill - Mumbai | First Aid - Lucknow
-        </div>
-    </div>
+    <div class="logo">
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <h1>Welcome to AAI Training Centre Dashboard</h1>
-        <p>Centralized platform for managing training across 130 stations.</p>
-    </section>
+     <img src="aai-logo.png" alt="AAI Logo" class="logo-img">
 
-    <!-- Login Section -->
-    <div id="loginPage" class="login-box">
-        <h2>Login</h2>
-
-        <input type="text" id="email" placeholder="Email">
-        <input type="password" id="password" placeholder="Password">
 
         <div>
-            <button onclick="employeeLogin()">Employee Login</button>
-            <button onclick="adminLogin()">Admin Login</button>
+
+            <h2>AIRPORTS AUTHORITY OF INDIA</h2>
+
+            <p>Training Management System</p>
+
         </div>
+
     </div>
 
-    <!-- Employee Dashboard -->
-    <div id="employeePage" class="dashboard">
-        <h2>Employee Dashboard</h2>
+    <nav>
 
-        <div class="card">
-            <h3>Available Trainings</h3>
-            <div id="trainings"></div>
-        </div>
+        <ul>
 
-        <div class="card">
-            <h3>Your Applications</h3>
-            <div id="myApplications"></div>
-        </div>
+            <li><a href="#">Home</a></li>
 
-        <button onclick="logout()">Logout</button>
+            <li><a href="#">Training Calendar</a></li>
+
+            <li><a href="#">Training History</a></li>
+
+            <li><a href="#">Profile</a></li>
+
+            <li><a href="#">Contact</a></li>
+
+        </ul>
+
+    </nav>
+
+</header>
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+    <div class="overlay">
+
+        <h1>
+
+            Airports Authority of India
+
+        </h1>
+
+        <h3>
+
+            Centralized Training Management Portal
+
+        </h3>
+
+        <p>
+
+            Training • Nomination • Approval • Certificates • Reports
+
+        </p>
+
     </div>
 
-    <!-- Admin Dashboard -->
-    <div id="adminPage" class="dashboard">
-        <h2>Admin Dashboard</h2>
+</section>
 
-        <div class="card">
-            <h3>Pending Applications</h3>
-            <div id="applications"></div>
-        </div>
+<!-- ================= LOGIN ================= -->
 
-        <button onclick="logout()">Logout</button>
-    </div>
+<section id="loginPage">
 
-    <!-- Footer -->
-    <footer>
-        <p>AAI Training Centre | Lucknow, Uttar Pradesh</p>
-        <p>© 2026 Airports Authority of India</p>
-    </footer>
+<div class="login-card">
 
-    <!-- External JavaScript -->
-    <script src="script.js"></script>
+<h2>Employee Login</h2>
+
+<p style="font-family: 'Poppins', sans-serif; font-size: 12px; color: #5a5a5a; text-align: center;">
+  Login with your Employee Code and Password
+</p>
+
+<input
+type="text"
+id="emp_code"
+placeholder="Employee Code">
+
+<input
+type="password"
+id="password"
+placeholder="Password">
+
+<button onclick="employeeLogin()">Login</button>
+
+<p style="font-family: 'Poppins', sans-serif; font-size: 12px; color: #5a5a5a; text-align: center; margin-top: 10px;">
+  <a href="#" onclick="adminLogin()">Login as Administrator</a>
+</p>
+
+</div>
+
+</section>
+
+<!-- ================= EMPLOYEE DASHBOARD ================= -->
+
+<section
+id="employeePage"
+class="dashboard"
+style="display:none;">
+
+<div class="dashboard-header">
+
+<h2>
+
+Employee Dashboard
+
+</h2>
+
+<div id="welcomeUser">
+
+Welcome
+
+</div>
+
+</div>
+
+<!-- Profile -->
+
+<div class="profile-card">
+
+<h3>Employee Information</h3>
+
+<div class="profile-grid">
+
+<p><strong>Name</strong></p>
+<p id="Name">-</p>
+
+<p><strong>Employee Code</strong></p>
+<p id="employee_id">-</p>
+
+<p><strong>Designation</strong></p>
+<p id="role">-</p>
+
+<p><strong>Station</strong></p>
+<p id="Location">-</p>
+
+</div>
+
+</div>
+
+<!-- Training Calendar -->
+
+<div class="card">
+
+<h3>
+
+Available Trainings
+
+</h3>
+
+<div id="trainingContainer" class="training-grid"></div>
+
+
+</div>
+
+<!-- My Applications -->
+
+<div class="card">
+
+<h3>
+
+My Applications
+
+</h3>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Training</th>
+
+<th>Status</th>
+
+<th>Applied On</th>
+
+</tr>
+
+</thead>
+
+<tbody id="myApplications">
+
+</tbody>
+
+</table>
+
+</div>
+
+<button
+class="logout-btn"
+onclick="logout()">
+
+Logout
+
+</button>
+
+</section>
+
+<!-- ================= ADMIN DASHBOARD ================= -->
+
+<section
+id="adminPage"
+class="dashboard"
+style="display:none;">
+
+<div class="dashboard-header">
+
+<h2>
+
+Administrator Dashboard
+
+</h2>
+
+<div id="adminWelcome">
+
+Administrator
+
+</div>
+
+</div>
+
+<!-- Statistics -->
+
+<div class="stats">
+
+<div class="stat-box">
+
+<h1 id="totalEmployees">
+
+0
+
+</h1>
+
+<p>Total Employees</p>
+
+</div>
+
+<div class="stat-box">
+
+<h1 id="totalTrainings">
+
+0
+
+</h1>
+
+<p>Total Trainings</p>
+
+</div>
+
+<div class="stat-box">
+
+<h1 id="pendingApplications">
+
+0
+
+</h1>
+
+<p>Pending Applications</p>
+
+</div>
+
+<div class="stat-box">
+
+<h1 id="approvedApplications">
+
+0
+
+</h1>
+
+<p>Approved</p>
+
+</div>
+
+</div>
+
+<!-- Pending Applications -->
+
+<div class="card">
+
+<h3>
+
+Training Applications
+
+</h3>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Employee</th>
+
+<th>Training</th>
+
+<th>Organisation</th>
+
+<th>Duration</th>
+
+<th>Start Date</th>
+
+<th>End Date</th>
+
+<th>Status</th>
+
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="applicationTable">
+
+</tbody>
+
+</table>
+
+</div>
+
+<!-- Training Calendar -->
+
+<div class="card">
+
+<h3>
+
+Training Calendar
+
+</h3>
+
+<div
+id="adminTrainingContainer"
+class="training-grid">
+
+</div>
+
+</div>
+
+<button
+class="logout-btn"
+onclick="logout()">
+
+Logout
+
+</button>
+
+</section>
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+<div>
+
+<h3>
+
+Airports Authority of India
+
+</h3>
+
+<p>
+
+AAI Training Management System
+
+</p>
+
+<p>
+
+Training Centre • Lucknow
+
+</p>
+
+</div>
+
+<div>
+
+<p>
+
+Developed by Team_AS
+
+</p>
+
+<p>
+
+© 2026 Airports Authority of India
+
+</p>
+
+</div>
+
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="script.js"></script>
 
 </body>
+
 </html>

@@ -1,0 +1,45 @@
+sr_no,employee_id,name,designation,password
+1,10001199,Shri A. A. Ansari,Jt. General Manager,pass10001199
+2,10001375,Shri Anil Kumar Shukla,Jt. General Manager,pass10001375
+3,10002897,Shri V. K. Singh,Dy. General Manager,pass10002897
+4,10017209,Shri Harish Kumar,Dy. General Manager,pass10017209
+5,10015161,Shri Sanjay Srivastava,Dy. General Manager,pass10015161
+6,10008831,Shri Sudhir Kumar Yadav,Dy. General Manager,pass10008831
+7,10007502,Shri Himanshu Singh,Dy. General Manager,pass10007502
+8,10019887,Shri Shailendra Singh,Dy. General Manager,pass10019887
+9,10003677,Smt. Vandana Sahu,Dy. General Manager,pass10003677
+10,10011611,Shri D. K. Maurya,Asst. General Manager,pass10011611
+11,10007470,Shri Vineet Kumar Chauhan,Asst. General Manager,pass10007470
+12,10015093,Shri Subhash Chandra Pandey,Asst. General Manager,pass10015093
+13,10007319,Shri J. P. Gupta,Asst. General Manager,pass10007319
+14,10003316,Shri Hari Shankar Singh,Asst. General Manager,pass10003316
+15,10017006,Shri Sunil Kumar Yadav,Asst. General Manager,pass10017006
+16,10017007,Shri Shailendra Kumar,Asst. General Manager,pass10017007
+17,10006505,Shri Sanjay Kumar Verma,Asst. General Manager,pass10006505
+18,10017136,Shri Manoj Kumar,Asst. General Manager,pass10017136
+19,10015058,Shri Hari Niwas Verma,Asst. General Manager,pass10015058
+20,10021740,Shri Anurag Awasthi,Asst. General Manager,pass10021740
+21,10019889,Shri V. Shashwat Mishra,Asst. General Manager,pass10019889
+22,10018855,Shri Dharmendra Kumar Pandey,Asst. General Manager,pass10018855
+23,10011830,Shri Rajneesh Kumar Singh,Asst. General Manager,pass10011830
+24,10015626,Shri Sarvesh Kumar,Asst. General Manager,pass10015626
+25,10012627,Shri Amit Kumar,Asst. General Manager,pass10012627
+26,10018197,Shri Pankaj Kumar Tripathi,Senior Manager,pass10018197
+27,10020052,Shri Ashutosh Pandey,Senior Manager,pass10020052
+28,10020023,Shri Narendra Singh,Senior Manager,pass10020023
+29,10002290,Shri Vaibhav Mishra,Manager,pass10002290
+30,10002275,Shri Shrikant Maurya,Manager,pass10002275
+31,10002392,Shri Sunny Kumar Verma,Manager,pass10002392
+32,10024744,Shri Atul Kumar,Manager,pass10024744
+33,10024731,Shri Sumit Verma,Manager,pass10024731
+34,10013789,Shri Gaurav Kumar Srivastava,Manager,pass10013789
+35,10013793,Shri Vivek Kumar Jaiswal,Manager,pass10013793
+36,10001215,Smt. Rupa Maurya,Asst. Manager,pass10001215
+37,10024325,Shri Ankit Kumar Maurya,Senior Executive,pass10024325
+38,10024345,Shri Vimal Kumar,Senior Executive,pass10024345
+39,10025901,Shri Akhilesh Maurya,Senior Executive,pass10025901
+40,10025900,Ku. Savita Kumari,Senior Executive,pass10025900
+41,10024333,Shri Harshit Kumar,Senior Executive,pass10024333
+42,10025709,Shri Hritik Srivastava,Office Executive,pass10025709
+43,10015460,Shri S. N. Singh,Senior Superintendent,pass10015460
+44,10001158,Shri Arjun Kumar,Senior Attendant,pass10001158
