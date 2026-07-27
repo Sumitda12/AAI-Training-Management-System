@@ -28,7 +28,20 @@ async function employeeLogin() {
   document.getElementById("loginPage").style.display = "none";
 }
 
-function adminLogin() {
+async function adminLogin() {
+  const adminCode = document.getElementById("admin_code").value;
+  const adminPassword = document.getElementById("admin_password").value;
+
+  const { data, error } = await supabaseClient.auth.signInWithPassword({
+    email: adminCode + "@yourcompany.internal",
+    password: adminPassword,
+  });
+
+  if (error) {
+    alert("Admin login failed: " + error.message);
+    return;
+  }
+
   localStorage.setItem("role", "admin");
   showPage("adminPage");
   loadApplications();
@@ -79,7 +92,10 @@ async function loadTrainings() {
   // Fetch trainings and this user's existing applications in parallel
   const [trainingsRes, applicationsRes] = await Promise.all([
     supabaseClient.from("training_calendar").select("*"),
-    supabaseClient.from("applications").select("training_id, status").eq("employee_id", user)
+    supabaseClient
+      .from("applications")
+      .select("training_id, status")
+      .eq("employee_id", user),
   ]);
 
   if (trainingsRes.error) {
@@ -90,7 +106,7 @@ async function loadTrainings() {
   // Map training_id -> status, so we know which trainings are already applied for
   const statusMap = {};
   if (!applicationsRes.error && applicationsRes.data) {
-    applicationsRes.data.forEach(app => {
+    applicationsRes.data.forEach((app) => {
       statusMap[app.training_id] = app.status;
     });
   }
@@ -98,27 +114,58 @@ async function loadTrainings() {
   const container = document.getElementById("trainingContainer");
   container.innerHTML = "";
 
-  trainingsRes.data.forEach(t => {
+  trainingsRes.data.forEach((t) => {
     const card = document.createElement("div");
     card.className = "card";
 
     const existingStatus = statusMap[t.id];
-    const actionHtml = existingStatus
-      ? `<span class="status-badge status-${existingStatus}">${statusLabel(existingStatus)}</span>`
-      : `<button onclick="apply(${t.id}, '${t.course_name}', '${t.organisation}', '${t.duration}', '${t.start_date}', '${t.end_date}', this)">Apply</button>`;
 
-    card.innerHTML = `
-      <h4>${t.course_name}</h4>
-      <p>Organisation: ${t.organisation}</p>
-      <p>Duration: ${t.duration}</p>
-      <p>Start Date: ${t.start_date}</p>
-      <p>End Date: ${t.end_date}</p>
-      <p>Location: ${t.Location}</p>
-      <p>Seats Remaining: ${t["Seats Remaining"]}</p>
-      ${actionHtml}
-    `;
+    if (existingStatus) {
+      card.innerHTML = `
+        <h4>${t.course_name}</h4>
+        <p>Organisation: ${t.Organisation}</p>
+        <p>Duration: ${t.duration}</p>
+        <p>Start Date: ${t.start_date}</p>
+        <p>End Date: ${t.end_date}</p>
+        <p>Location: ${t.Location}</p>
+        <p>Seats Remaining: ${t["Seats Remaining"]}</p>
+        <span class="status-badge status-${existingStatus}">${statusLabel(existingStatus)}</span>
+      `;
+    } else {
+      card.innerHTML = `
+        <h4>${t.course_name}</h4>
+        <p>Organisation: ${t.Organisation}</p>
+        <p>Duration: ${t.duration}</p>
+        <p>Start Date: ${t.start_date}</p>
+        <p>End Date: ${t.end_date}</p>
+        <p>Location: ${t.Location}</p>
+        <p>Seats Remaining: ${t["Seats Remaining"]}</p>
+        <button class="apply-btn">Apply Now</button>
+      `;
+
+      // Attach the click handler with addEventListener instead of an
+      // inline onclick string, so course/organisation names containing
+      // quotes or apostrophes can't silently break the button.
+      const applyBtn = card.querySelector(".apply-btn");
+      applyBtn.addEventListener("click", () => {
+        apply(
+          t.id,
+          t.course_name,
+          t.Organisation,
+          t.duration,
+          t.start_date,
+          t.end_date,
+          applyBtn
+        );
+      });
+    }
+
     container.appendChild(card);
   });
+
+  // Reset the empty-state message whenever the training list is freshly loaded
+  const emptyState = document.getElementById("noTrainingsFound");
+  if (emptyState) emptyState.style.display = "none";
 }
 
 // Turns a status value into a readable label
@@ -144,12 +191,12 @@ async function loadAdminTrainings() {
   if (!container) return;
   container.innerHTML = "";
 
-  data.forEach(t => {
+  data.forEach((t) => {
     const card = document.createElement("div");
     card.className = "card";
     card.innerHTML = `
       <h4>${t.course_name}</h4>
-      <p>Organisation: ${t.organisation}</p>
+      <p>Organisation: ${t.Organisation}</p>
       <p>Duration: ${t.duration}</p>
       <p>Start Date: ${t.start_date}</p>
       <p>End Date: ${t.end_date}</p>
@@ -158,10 +205,22 @@ async function loadAdminTrainings() {
     `;
     container.appendChild(card);
   });
+
+  // Reset the empty-state message whenever the training list is freshly loaded
+  const emptyState = document.getElementById("noAdminTrainingsFound");
+  if (emptyState) emptyState.style.display = "none";
 }
 
 // ================= APPLICATIONS =================
-async function apply(trainingId, courseName, organisation, duration, startDate, endDate, btn) {
+async function apply(
+  trainingId,
+  courseName,
+  Organisation,
+  duration,
+  startDate,
+  endDate,
+  btn,
+) {
   const user = localStorage.getItem("currentUser");
 
   if (btn) {
@@ -169,26 +228,24 @@ async function apply(trainingId, courseName, organisation, duration, startDate, 
     btn.textContent = "Submitting...";
   }
 
-  const { error } = await supabaseClient
-    .from("applications")
-    .insert([
-      {
-        employee_id: user,
-        training_id: trainingId,
-        training_title: courseName,
-        organisation: organisation,
-        duration: duration,
-        start_date: startDate,
-        end_date: endDate,
-        status: "pending"
-      }
-    ]);
+  const { error } = await supabaseClient.from("applications").insert([
+    {
+      employee_id: user,
+      training_id: trainingId,
+      training_title: courseName,
+      Organisation: Organisation,
+      duration: duration,
+      start_date: startDate,
+      end_date: endDate,
+      status: "pending",
+    },
+  ]);
 
   if (error) {
     alert("Error submitting application: " + error.message);
     if (btn) {
       btn.disabled = false;
-      btn.textContent = "Apply";
+      btn.textContent = "Apply Now";
     }
     return;
   }
@@ -204,25 +261,37 @@ async function apply(trainingId, courseName, organisation, duration, startDate, 
   loadMyApplications();
 }
 
+let currentApplications = [];
+let currentSortOrder = "desc";
+
 async function loadApplications() {
-  const { data, error } = await supabaseClient
-    .from("applications")
-    .select("*");
+  const { data, error } = await supabaseClient.from("applications").select("*");
 
   if (error) {
     console.error("Error loading applications:", error.message);
     return;
   }
 
+  currentApplications = data;
+  renderApplications();
+}
+
+function renderApplications() {
+  const sorted = [...currentApplications].sort((a, b) => {
+    const dateA = new Date(a.start_date);
+    const dateB = new Date(b.start_date);
+    return currentSortOrder === "asc" ? dateA - dateB : dateB - dateA;
+  });
+
   const container = document.getElementById("applicationTable");
   container.innerHTML = "";
 
-  data.forEach(app => {
+  sorted.forEach((app) => {
     const row = document.createElement("tr");
     row.innerHTML = `
       <td>${app.employee_id}</td>
       <td>${app.training_title}</td>
-      <td>${app.organisation}</td>
+      <td>${app.Organisation}</td>
       <td>${app.duration}</td>
       <td>${app.start_date}</td>
       <td>${app.end_date}</td>
@@ -234,6 +303,11 @@ async function loadApplications() {
     `;
     container.appendChild(row);
   });
+}
+
+function sortApplicationsByDate(order) {
+  currentSortOrder = order;
+  renderApplications();
 }
 
 async function decision(id, status) {
@@ -267,7 +341,7 @@ async function loadMyApplications() {
   const container = document.getElementById("myApplications");
   container.innerHTML = "";
 
-  data.forEach(app => {
+  data.forEach((app) => {
     const row = document.createElement("tr");
     row.innerHTML = `
       <td>${app.training_title}</td>
@@ -280,9 +354,13 @@ async function loadMyApplications() {
 
 // ================= ADMIN STATS =================
 async function loadAdminStats() {
-  const { count: employeeCount } = await supabaseClient
-    .from("employees")
-    .select("*", { count: "exact", head: true });
+  const { data: employeeApps } = await supabaseClient
+    .from("applications")
+    .select("employee_id");
+
+  const distinctEmployeeCount = employeeApps
+    ? new Set(employeeApps.map((a) => a.employee_id)).size
+    : 0;
 
   const { count: trainingCount } = await supabaseClient
     .from("training_calendar")
@@ -298,10 +376,34 @@ async function loadAdminStats() {
     .select("*", { count: "exact", head: true })
     .eq("status", "approved");
 
-  document.getElementById("totalEmployees").textContent = employeeCount ?? 0;
+  document.getElementById("totalEmployees").textContent = distinctEmployeeCount;
   document.getElementById("totalTrainings").textContent = trainingCount ?? 0;
-  document.getElementById("pendingApplications").textContent = pendingCount ?? 0;
-  document.getElementById("approvedApplications").textContent = approvedCount ?? 0;
+  document.getElementById("pendingApplications").textContent =
+    pendingCount ?? 0;
+  document.getElementById("approvedApplications").textContent =
+    approvedCount ?? 0;
+}
+
+// Re-pulls applications, trainings, and stats from Supabase on demand, so the
+// admin dashboard reflects the latest data (e.g. new applications submitted
+// by employees, or newly added employees) without needing to log out and
+// back in.
+async function refreshAdminDashboard(btn) {
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = "Refreshing...";
+  }
+
+  await Promise.all([
+    loadApplications(),
+    loadAdminTrainings(),
+    loadAdminStats(),
+  ]);
+
+  if (btn) {
+    btn.disabled = false;
+    btn.textContent = "Refresh";
+  }
 }
 
 // ================= TEST CONNECTION =================
@@ -315,3 +417,52 @@ async function testConnection() {
 }
 
 testConnection();
+
+// ================= SEARCH TRAININGS =================
+// Scoped to #trainingContainer only, so it never touches the "My Applications"
+// card or anything else on the page. Also toggles a "no results" empty state
+// instead of silently leaving a blank grid.
+function searchTraining() {
+  const searchValue = document
+    .getElementById("trainingSearch")
+    .value.toLowerCase();
+
+  const cards = document.querySelectorAll("#trainingContainer .card");
+  let visibleCount = 0;
+
+  cards.forEach((card) => {
+    const text = card.innerText.toLowerCase();
+    const matches = text.includes(searchValue);
+    card.style.display = matches ? "" : "none";
+    if (matches) visibleCount++;
+  });
+
+  const emptyState = document.getElementById("noTrainingsFound");
+  if (emptyState) {
+    emptyState.style.display = visibleCount === 0 ? "flex" : "none";
+  }
+}
+
+// ================= SEARCH TRAININGS (Admin) =================
+// Scoped to #adminTrainingContainer only, so it never touches the
+// Training Applications table or anything else on the admin page.
+function searchAdminTraining() {
+  const searchValue = document
+    .getElementById("adminTrainingSearch")
+    .value.toLowerCase();
+
+  const cards = document.querySelectorAll("#adminTrainingContainer .card");
+  let visibleCount = 0;
+
+  cards.forEach((card) => {
+    const text = card.innerText.toLowerCase();
+    const matches = text.includes(searchValue);
+    card.style.display = matches ? "" : "none";
+    if (matches) visibleCount++;
+  });
+
+  const emptyState = document.getElementById("noAdminTrainingsFound");
+  if (emptyState) {
+    emptyState.style.display = visibleCount === 0 ? "flex" : "none";
+  }
+}

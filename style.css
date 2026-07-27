@@ -1,11 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Poppins:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&display=swap');
 
 :root{
   /* Brand */
-  --accent:#005BAC;
-  --accent-dark:#003B73;
-  --accent-light:#2E7FCE;
-  --signal:#E8A33D;        /* control-tower amber — the one signature accent, used sparingly */
+  --accent:#153a6b;
+  --accent-dark:#0b1b3a;
+  --accent-light:#3f8ae0;
+  --signal:#ffb020;        /* control-tower amber — the one signature accent, used sparingly */
   --ink:#16233A;
   --muted:#5B6B82;
   --bg:#f5f7fb;
@@ -39,10 +40,12 @@
   /* Three-role font system:
      Oswald  = masthead only (condensed, official, used once)
      Poppins = display/brand moments (headings, card titles, the login CTA)
-     Inter   = body + data (built for legibility at small sizes, real tabular figures) */
+     Inter   = body + data (built for legibility at small sizes, real tabular figures)
+     IBM Plex Mono = instrument-panel utility labels (login field tags only) */
   --font-mast:'Oswald','Roboto Condensed','Helvetica Neue',Arial,sans-serif;
   --font-display:'Poppins',sans-serif;
   --font-body:'Inter',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
 }
 
 /* ===========================
@@ -70,6 +73,145 @@ body{
 ::-webkit-scrollbar{width:10px;height:10px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--accent),var(--accent-dark));border-radius:10px;border:2px solid var(--bg)}
+
+/* Training Card */
+
+.training-card {
+
+    width: 420px;
+    background: white;
+
+    border-radius: 18px;
+
+    padding: 28px 32px;
+
+    box-shadow:
+    0 8px 25px rgba(0,0,0,0.08);
+
+    border:1px solid rgba(10,50,95,0.08);
+
+    transition:0.35s ease;
+
+    animation: fadeUp 0.5s ease;
+
+}
+
+
+.training-card:hover {
+
+    transform: translateY(-5px);
+
+    box-shadow:
+    0 15px 35px rgba(12,52,100,0.18);
+
+}
+
+
+/* Training Name */
+
+.training-card h3 {
+
+    font-size:20px;
+
+    color:#0b2345;
+
+    font-weight:800;
+
+    margin-bottom:14px;
+
+}
+
+
+/* Information */
+
+.training-card p {
+
+    font-size:15.5px;
+
+    margin:8px 0;
+
+    color:#172b4d;
+
+    font-weight:500;
+
+}
+
+
+
+/* Apply Button */
+
+.apply-btn {
+
+    margin-top:20px;
+
+    width:100%;
+
+    padding:11px 0;
+
+    border:none;
+
+    border-radius:12px;
+
+
+    background:
+    linear-gradient(
+        135deg,
+        #082f5f,
+        #123f73
+    );
+
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+
+    transition:0.3s ease;
+
+}
+
+
+.apply-btn:hover {
+
+    transform:scale(1.025);
+
+    background:
+    linear-gradient(
+        135deg,
+        #123f73,
+        #082f5f
+    );
+
+    box-shadow:
+    0 8px 18px rgba(8,47,95,0.35);
+
+}
+
+
+
+/* Animation */
+
+@keyframes fadeUp {
+
+from {
+
+    opacity:0;
+    transform:translateY(20px);
+
+}
+
+to {
+
+    opacity:1;
+    transform:translateY(0);
+
+}
+
+}
 
 /* Masthead typography */
 .header-title {
@@ -130,6 +272,216 @@ a{text-decoration:none;color:inherit;transition:color var(--fast) var(--ease)}
 a:focus{outline:3px solid rgba(0,91,172,0.18);outline-offset:3px}
 img{max-width:100%;display:block}
 
+/* ==================================
+   AVAILABLE TRAININGS HEADER
+   (Heading + Search Bar Container)
+================================== */
+
+.training-header {
+
+    /* Keeps heading left and search right */
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+
+    /* Takes full card width */
+    width:100%;
+
+
+    /* Moves both slightly inside from edges */
+    padding:0 30px;
+
+
+    /* Space between header and training cards */
+    margin-bottom:35px;
+
+}
+
+
+
+/* ==================================
+   AVAILABLE TRAININGS TEXT
+================================== */
+
+.training-header h3 {
+
+
+    /* Increase/decrease heading size */
+    font-size:32px;
+
+
+    /* AAI navy blue */
+    color:#082653;
+
+
+    font-weight:800;
+
+
+}
+/* ==================================
+   SEARCH TRAINING BAR (Admin)
+================================== */
+
+#adminTrainingSearch {
+
+    /* Search bar width */
+    width:360px;
+
+    /* Search bar height */
+    height:55px;
+
+    /* Space inside search bar */
+    padding:0 25px;
+
+    /* Rounded pill shape */
+    border-radius:35px;
+
+    /* Light blue border */
+    border:2px solid #c7def8;
+
+    outline:none;
+
+    /* Text size */
+    font-size:16px;
+
+    font-weight:700;
+
+    /* Search text colour */
+    color:#082653;
+
+    background:white;
+
+    /* Soft floating shadow */
+    box-shadow:
+    0 12px 30px rgba(8,47,95,0.15);
+
+    /* Smooth animation */
+    transition:0.3s ease;
+
+}
+
+/* ==================================
+   WHEN USER CLICKS SEARCH BAR (Admin)
+================================== */
+
+#adminTrainingSearch:focus {
+
+    /* Slight expansion animation */
+    width:400px;
+
+    /* Darker AAI border */
+    border-color:#083b75;
+
+}
+
+/* ==================================
+   SEARCH BAR HOVER EFFECT (Admin)
+================================== */
+
+#adminTrainingSearch:hover {
+
+    /* Slight lift */
+    transform:translateY(-2px);
+
+}
+
+
+
+/* ==================================
+   SEARCH TRAINING BAR
+================================== */
+
+#trainingSearch {
+
+
+    /* Search bar width */
+    width:360px;
+
+
+    /* Search bar height */
+    height:55px;
+
+
+    /* Space inside search bar */
+    padding:0 25px;
+
+
+    /* Rounded pill shape */
+    border-radius:35px;
+
+
+    /* Light blue border */
+    border:2px solid #c7def8;
+
+
+    outline:none;
+
+
+    /* Text size */
+    font-size:16px;
+
+
+    font-weight:700;
+
+
+    /* Search text colour */
+    color:#082653;
+
+
+    background:white;
+
+
+
+    /* Soft floating shadow */
+    box-shadow:
+    0 12px 30px rgba(8,47,95,0.15);
+
+
+
+    /* Smooth animation */
+    transition:0.3s ease;
+
+}
+
+
+
+
+/* ==================================
+   WHEN USER CLICKS SEARCH BAR
+================================== */
+
+#trainingSearch:focus {
+
+
+    /* Slight expansion animation */
+    width:400px;
+
+
+    /* Darker AAI border */
+    border-color:#083b75;
+
+
+}
+
+
+
+
+/* ==================================
+   SEARCH BAR HOVER EFFECT
+================================== */
+
+#trainingSearch:hover {
+
+
+    /* Slight lift */
+    transform:translateY(-2px);
+
+
+}
+
 /* Header / logo visibility fixes */
 .site-header { position: relative; z-index: 1100; }
 .logo-img { width:64px; height:auto; display:block; object-fit:contain; border-radius:10px; border:2px solid rgba(255,255,255,0.12); box-shadow:0 6px 18px rgba(0,0,0,0.08); transition:transform var(--med) var(--ease), box-shadow var(--med) var(--ease); }
@@ -168,39 +520,173 @@ nav a::after{
 }
 nav a:hover::after,nav a:focus-visible::after{transform:scaleX(1);transform-origin:left}
 
-/* HERO */
+/* HERO — recast as a wide instrument/radar console instead of a stock photo,
+   built with layered gradients only so the hero's HTML markup stays untouched */
 .hero{
   height:58vh;
   background:
-    linear-gradient(180deg, rgba(0,59,115,0.72), rgba(0,59,115,0.6)),
-    url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
+    repeating-radial-gradient(circle at 50% 55%, rgba(255,255,255,0.05) 0 1px, transparent 1px 54px),
+    linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px) 0 0/42px 42px,
+    linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px) 0 0/42px 42px,
+    radial-gradient(circle at 50% 55%, var(--accent-dark) 0%, #071a38 55%, #030c1f 100%);
   display:flex;justify-content:center;align-items:center;text-align:center;color:#fff;position:relative;overflow:hidden;
 }
-.hero .overlay{position:relative;z-index:2;max-width:1100px;padding:30px}
-.overlay h1{font-family:var(--font-display);font-weight:700;font-size:var(--fs-3xl);margin-bottom:6px;letter-spacing:-0.6px;text-shadow:0 6px 30px rgba(0,0,0,0.35);animation:fadeUp .9s var(--ease) both}
-.overlay h3{font-family:var(--font-body);font-weight:500;font-size:var(--fs-md);margin:10px 0;opacity:0.95;animation:fadeUp .95s var(--ease) .08s both}
-.overlay p{font-family:var(--font-body);font-size:var(--fs-md);opacity:0.95;animation:fadeUp 1s var(--ease) .12s both}
+.hero .overlay{position:relative;z-index:2;max-width:1100px;padding:30px;display:flex;flex-direction:column;align-items:center}
+.overlay h1{order:2;font-family:var(--font-display);font-weight:700;font-size:var(--fs-3xl);margin-bottom:10px;letter-spacing:-0.6px;text-shadow:0 6px 30px rgba(0,0,0,0.35);animation:fadeUp .9s var(--ease) both}
+.overlay h3{
+  order:1;
+  font-family:var(--font-mono);
+  font-weight:600;
+  font-size:11px;
+  letter-spacing:2.4px;
+  text-transform:uppercase;
+  color:var(--signal);
+  margin:0 0 14px;
+  opacity:1;
+  animation:fadeUp .95s var(--ease) .08s both;
+}
+.overlay p{order:3;font-family:var(--font-body);font-size:var(--fs-md);color:#c3cee2;opacity:0.95;animation:fadeUp 1s var(--ease) .12s both}
 
-/* Signature ambient motion: a slow, abstracted radar-style sweep instead of a static blur —
-   a nod to the surveillance/control-room world this portal serves, kept soft enough to be atmosphere, not decoration */
+/* Signature ambient motion: a slow radar sweep centered on the hero, plus a couple of
+   pulsing blips — a nod to the surveillance/control-room world this portal serves */
 .hero::before{
   content:"";
-  position:absolute;right:-10%;top:-20%;width:60vmax;height:60vmax;border-radius:50%;
-  background:conic-gradient(from 0deg, rgba(255,255,255,0.10), transparent 25%, transparent 75%, rgba(232,163,61,0.08));
-  filter:blur(60px);
-  opacity:0.9;
-  animation:sweep 18s linear infinite;
+  position:absolute;top:50%;left:50%;
+  width:70vmax;height:70vmax;
+  margin:-35vmax 0 0 -35vmax;
+  border-radius:50%;
+  background:conic-gradient(from 0deg, rgba(232,163,61,0.16), transparent 22%, transparent 78%, rgba(255,255,255,0.06));
+  filter:blur(40px);
+  opacity:0.85;
+  animation:sweep 22s linear infinite;
+  pointer-events:none;
+}
+.hero::after{
+  content:"";
+  position:absolute;
+  top:calc(55% - 3px); left:calc(50% - 3px);
+  width:6px;height:6px;border-radius:50%;
+  background:var(--signal);
+  box-shadow:
+    0 0 0 0 rgba(232,163,61,0.5),
+    120px -70px 0 -1px rgba(143,208,255,0.9),
+    -100px 55px 0 -1px rgba(232,163,61,0.9);
+  animation:pulseDot 2.4s var(--ease) infinite;
+  pointer-events:none;
 }
 
-/* LOGIN */
-#loginPage{display:flex;justify-content:center;align-items:center;min-height:70vh;padding:60px 20px}
-.login-card{
-  background:var(--card-bg);width:min(420px, 92vw);padding:40px 36px;border-radius:var(--radius-lg);
-  box-shadow:var(--soft-shadow);backdrop-filter:blur(6px);border:1px solid rgba(2,18,43,0.04);
+/* LOGIN — split view: radar brand panel + form panel (fills the screen below the header) */
+#loginPage{padding:0}
+
+.auth-shell{
+  display:grid;
+  grid-template-columns:44% 1fr;
+  min-height:calc(100vh - 96px);
+  margin:0;
+  border-radius:0;
+  overflow:hidden;
+  box-shadow:none;
   animation:cardIn .6s var(--ease) both;
-  transition:box-shadow var(--med) var(--ease);
 }
-.login-card:hover{box-shadow:0 18px 50px rgba(2,18,43,0.08)}
+
+/* ---- Brand / radar panel ---- */
+.brand-panel{
+  position:relative;
+  background:radial-gradient(circle at 50% 38%, var(--accent-light) 0%, var(--accent-dark) 55%, #050e22 100%);
+  color:#eaf0fb;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:56px 40px;
+  overflow:hidden;
+}
+.brand-panel::before{
+  content:"";
+  position:absolute; inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+  background-size:34px 34px;
+  pointer-events:none;
+}
+
+.radar{ position:relative; width:230px; height:230px; margin-bottom:36px; flex-shrink:0; }
+.radar-ring{ position:absolute; border-radius:50%; border:1px solid rgba(234,240,251,0.14); top:50%; left:50%; transform:translate(-50%,-50%); }
+.radar-ring.r1{width:100%; height:100%;}
+.radar-ring.r2{width:68%; height:68%;}
+.radar-ring.r3{width:36%; height:36%;}
+.radar-crosshair{ position:absolute; inset:0; }
+.radar-crosshair::before,.radar-crosshair::after{ content:""; position:absolute; background:rgba(234,240,251,0.1); }
+.radar-crosshair::before{ top:50%; left:0; right:0; height:1px; }
+.radar-crosshair::after{ left:50%; top:0; bottom:0; width:1px; }
+
+.radar-sweep{
+  position:absolute; inset:0; border-radius:50%;
+  background:conic-gradient(from 0deg, rgba(232,163,61,0.45), transparent 34%, transparent 100%);
+  animation:sweep 4.5s linear infinite;
+  mix-blend-mode:screen;
+}
+
+.radar-blip{ position:absolute; width:6px; height:6px; border-radius:50%; background:var(--signal); box-shadow:0 0 0 0 rgba(232,163,61,0.55); animation:blip 2.6s var(--ease) infinite; }
+.radar-blip.b1{ top:30%; left:64%; animation-delay:0s; }
+.radar-blip.b2{ top:68%; left:38%; animation-delay:1.3s; background:#8fd0ff; box-shadow:0 0 0 0 rgba(143,208,255,0.55); }
+@keyframes blip{
+  0%{ box-shadow:0 0 0 0 rgba(232,163,61,0.55); }
+  70%{ box-shadow:0 0 0 12px rgba(232,163,61,0); }
+  100%{ box-shadow:0 0 0 0 rgba(232,163,61,0); }
+}
+
+.plane{
+  position:absolute; width:16px; height:16px; top:0; left:0;
+  offset-path: path("M32,150 C70,45 190,45 228,150 C190,255 70,255 32,150 Z");
+  offset-rotate:auto;
+  animation:fly 7s linear infinite;
+  color:var(--signal);
+}
+@keyframes fly{ to{ offset-distance:100%; } }
+
+.flight-path{ position:absolute; inset:0; width:100%; height:100%; }
+.flight-path path{ fill:none; stroke:rgba(234,240,251,0.16); stroke-width:1; stroke-dasharray:3 6; }
+
+.brand-copy{ text-align:center; max-width:340px; }
+.eyebrow{
+  display:inline-block; font-family:var(--font-mono); font-size:11px; font-weight:600;
+  letter-spacing:2.2px; color:var(--signal); margin-bottom:14px;
+}
+.brand-copy h1{
+  font-family:var(--font-display); font-weight:700; font-size:26px; line-height:1.25;
+  margin:0 0 12px; color:#fff;
+}
+.brand-copy p{ font-size:13.5px; line-height:1.6; color:#c3cee2; margin:0; }
+
+.status-row{
+  position:absolute; bottom:28px; left:0; right:0; display:flex; align-items:center; justify-content:center; gap:9px;
+  font-family:var(--font-mono); font-size:11px; letter-spacing:1.4px; color:#8fa1c2;
+}
+.status-dot{
+  width:7px; height:7px; border-radius:50%; background:var(--success);
+  box-shadow:0 0 0 0 rgba(30,158,82,0.6); animation:pulseDot 2s var(--ease) infinite;
+}
+
+/* ---- Form panel ---- */
+.form-panel-wrap{ display:flex; align-items:center; justify-content:center; padding:40px; background:var(--card-bg); }
+
+.login-card{
+  background:transparent; width:100%; max-width:380px; padding:0; border-radius:0;
+  box-shadow:none; backdrop-filter:none; border:none;
+}
+
+.login-eyebrow{
+  display:block;
+  font-family:var(--font-mono);
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:2.2px;
+  color:var(--accent-light);
+  text-align:center;
+  margin-bottom:10px;
+}
 
 .login-card h2{
   font-family:var(--font-display);font-weight:700;font-size:var(--fs-xl);
@@ -210,6 +696,67 @@ nav a:hover::after,nav a:focus-visible::after{transform:scaleX(1);transform-orig
   font-family:var(--font-body);font-size:var(--fs-sm);
   text-align:center;margin-bottom:24px;color:var(--muted);
 }
+
+/* Employee / Admin segmented tab switcher */
+.segmented{
+  position:relative;
+  display:flex;
+  background:#f1f3f8;
+  border-radius:11px;
+  padding:4px;
+  margin-bottom:26px;
+}
+.segmented-highlight{
+  position:absolute;
+  top:4px; left:4px;
+  height:calc(100% - 8px);
+  width:50%;
+  background:#ffffff;
+  border-radius:8px;
+  box-shadow:0 2px 8px rgba(16,27,45,0.10);
+  transition:transform .32s var(--ease), width .32s var(--ease);
+  z-index:0;
+}
+.seg-btn{
+  position:relative;
+  z-index:1;
+  flex:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  border:none;
+  background:transparent;
+  padding:9px 0;
+  font-family:var(--font-body);
+  font-weight:600;
+  font-size:13.5px;
+  color:var(--muted);
+  cursor:pointer;
+  border-radius:8px;
+  transition:color .2s var(--ease);
+}
+.seg-btn.active{ color:var(--accent-dark); }
+.seg-btn svg{ width:15px; height:15px; flex-shrink:0; }
+
+/* Employee / Admin panel switching (markup added inside .login-card) */
+.form-panel{ display:none; }
+.form-panel.active{ display:block; animation:panelIn .35s var(--ease) both; }
+@keyframes panelIn{
+  from{opacity:0; transform:translateY(6px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+.field-label{
+  display:block;
+  font-family:var(--font-mono);
+  font-size:10.5px;
+  font-weight:600;
+  letter-spacing:1.4px;
+  color:#8992a3;
+  margin:0 0 7px 2px;
+}
+
 .login-card input{
   width:100%;font-family:var(--font-body);font-size:var(--fs-base);color:var(--ink);
   padding:14px 16px;margin-bottom:14px;border:1px solid rgba(2,18,43,0.08);border-radius:12px;
@@ -219,21 +766,188 @@ nav a:hover::after,nav a:focus-visible::after{transform:scaleX(1);transform-orig
 .login-card input::placeholder{color:#9aa5b3}
 .login-card input:focus{border-color:var(--accent-light);box-shadow:0 8px 30px rgba(0,91,172,0.12);transform:translateY(-2px)}
 
-.login-card button{
+.login-card .form-panel button{
   position:relative;width:100%;padding:14px;border:none;overflow:hidden;
   font-family:var(--font-display);font-weight:600;font-size:var(--fs-base);letter-spacing:0.4px;
   background:linear-gradient(90deg,var(--accent),var(--accent-dark));color:#fff;border-radius:12px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:8px;
   transition:transform var(--fast) var(--ease), box-shadow var(--fast) var(--ease);
 }
-.login-card button:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,91,172,0.18)}
-.login-card button:active{transform:translateY(-1px) scale(.99)}
+.login-card .form-panel button:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,91,172,0.18)}
+.login-card .form-panel button:active{transform:translateY(-1px) scale(.99)}
+.btn-arrow{transition:transform var(--fast) var(--ease)}
+.login-card .form-panel button:hover .btn-arrow{transform:translateX(3px)}
 
 /* Optional loading state — toggle from JS on submit: element.classList.add('is-loading') */
-.login-card button.is-loading{color:transparent;pointer-events:none}
-.login-card button.is-loading::after{
+.login-card .form-panel button.is-loading{color:transparent;pointer-events:none}
+.login-card .form-panel button.is-loading::after{
   content:"";position:absolute;top:50%;left:50%;width:18px;height:18px;margin:-9px 0 0 -9px;
   border-radius:50%;border:2px solid rgba(255,255,255,0.35);border-top-color:#fff;
   animation:spin .7s linear infinite;
+}
+
+.login-footnote{
+  text-align:center;
+  font-size:11.5px;
+  color:#a7afbd;
+  margin:20px 0 0;
+}
+
+/* ==================================
+   EMPLOYEE INFORMATION CARD (premium)
+================================== */
+
+.profile-card--emp{
+  padding:0;
+  overflow:hidden;
+}
+
+.profile-card--emp::before{
+  content:"";
+  display:block;
+  height:3px;
+  background:linear-gradient(90deg, var(--accent), var(--signal) 50%, var(--accent));
+  background-size:200% 100%;
+  animation:profileSheen 6s linear infinite;
+}
+@keyframes profileSheen{
+  0%{background-position:0% 0;}
+  100%{background-position:-200% 0;}
+}
+
+.profile-card__head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:20px 26px 18px;
+  border-bottom:1px solid rgba(2,18,43,0.06);
+}
+
+.profile-card__title{
+  display:flex;
+  align-items:center;
+  gap:13px;
+}
+
+.profile-card__icon{
+  width:38px;height:38px;
+  border-radius:10px;
+  background:linear-gradient(135deg,var(--accent),var(--accent-dark));
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+  color:#fff;
+}
+.profile-card__icon svg{width:18px;height:18px;}
+
+.profile-card--emp h3{
+  font-family:var(--font-display);
+  font-weight:700;
+  font-size:var(--fs-md);
+  color:var(--ink);
+  margin:0;
+}
+
+.profile-card__sub{
+  font-family:var(--font-mono);
+  font-size:10.5px;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  color:var(--muted);
+  display:block;
+  margin-top:2px;
+}
+
+.profile-card__status{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  padding:6px 13px;
+  border-radius:20px;
+  background:linear-gradient(180deg,#e9f7ee,#d4edda);
+  color:#155724;
+  font-family:var(--font-body);
+  font-weight:700;
+  font-size:11.5px;
+}
+.profile-card__status i{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--success);
+  box-shadow:0 0 0 3px rgba(30,158,82,0.18);
+  animation:pulseDot 2.2s var(--ease) infinite;
+}
+
+.profile-card--emp .profile-grid{
+  display:block;
+  padding:8px 12px 14px;
+}
+
+.profile-row{
+  display:flex;
+  align-items:center;
+  gap:13px;
+  padding:14px 16px;
+  margin:2px 4px;
+  border-radius:10px;
+  transition:background var(--fast) var(--ease);
+  opacity:0;
+  transform:translateX(-6px);
+  animation:profileRowIn .5s var(--ease) forwards;
+}
+.profile-row:hover{ background:rgba(0,91,172,0.04); }
+.profile-row:hover .profile-row__icon{ background:var(--signal); color:#fff; }
+
+.profile-row:nth-child(1){ animation-delay:.08s; }
+.profile-row:nth-child(2){ animation-delay:.14s; }
+.profile-row:nth-child(3){ animation-delay:.20s; }
+.profile-row:nth-child(4){ animation-delay:.26s; }
+
+@keyframes profileRowIn{ to{ opacity:1; transform:translateX(0); } }
+
+.profile-row + .profile-row{
+  border-top:1px solid rgba(2,18,43,0.05);
+}
+
+.profile-row__icon{
+  width:30px;height:30px;
+  border-radius:8px;
+  background:#eef3fb;
+  color:var(--accent-dark);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+  transition:background var(--fast) var(--ease), color var(--fast) var(--ease);
+}
+.profile-row__icon svg{width:14px;height:14px;}
+
+.profile-row__label{
+  font-family:var(--font-body);
+  font-weight:600;
+  font-size:11.5px;
+  letter-spacing:0.03em;
+  text-transform:uppercase;
+  color:var(--muted);
+  width:150px;
+  flex-shrink:0;
+}
+
+.profile-row__value{
+  font-family:var(--font-body);
+  font-weight:500;
+  font-size:var(--fs-base);
+  color:var(--ink);
+  margin-left:auto;
+  text-align:right;
+}
+
+.profile-row__value--mono{
+  font-family:var(--font-mono);
+  font-size:13.5px;
+  letter-spacing:0.02em;
+}
+
+@media(max-width:640px){
+  .profile-row{ flex-wrap:wrap; }
+  .profile-row__label{ width:auto; }
+  .profile-row__value{ margin-left:44px; text-align:left; width:100%; }
 }
 
 /* DASHBOARD */
@@ -252,6 +966,8 @@ nav a:hover::after,nav a:focus-visible::after{transform:scaleX(1);transform-orig
   content:"";width:8px;height:8px;border-radius:50%;background:var(--signal);
   animation:pulseDot 2.4s var(--ease) infinite;
 }
+
+
 
 /* Cards and grid */
 .profile-card,.card,.stat-box{
@@ -307,7 +1023,7 @@ tbody tr:focus-within{outline:3px solid rgba(0,91,172,0.06);outline-offset:4px}
 .rejected{background:linear-gradient(180deg,#fff0f2,#f8d7da);color:#721c24}
 
 /* FOOTER */
-footer{background:linear-gradient(90deg,var(--accent-dark),#002b4a);color:#fff;text-align:center;padding:34px 22px;margin-top:40px;border-top:1px solid rgba(255,255,255,0.04)}
+footer{background:linear-gradient(90deg,var(--accent-dark),#02040a);color:#fff;text-align:center;padding:34px 22px;margin-top:0;border-top:1px solid rgba(255,255,255,0.04)}
 footer p{font-family:var(--font-body);font-size:var(--fs-sm);margin:6px 0;opacity:0.95}
 
 /* Small UI helpers */
@@ -321,6 +1037,15 @@ footer p{font-family:var(--font-body);font-size:var(--fs-sm);margin:6px 0;opacit
   .dashboard-header{flex-direction:column;gap:12px}
   .profile-grid{grid-template-columns:1fr}
   .hero{height:46vh}
+}
+@media(max-width:860px){
+  #loginPage{padding:0}
+  .auth-shell{grid-template-columns:1fr;min-height:auto;border-radius:0}
+  .brand-panel{padding:36px 24px;min-height:280px}
+  .radar{width:170px;height:170px;margin-bottom:22px}
+  .brand-copy h1{font-size:22px}
+  .status-row{position:static;margin-top:24px}
+  .form-panel-wrap{padding:36px 22px 44px}
 }
 @media(max-width:640px){
   header{padding:14px}
@@ -359,3 +1084,36 @@ footer p{font-family:var(--font-body);font-size:var(--fs-sm);margin:6px 0;opacit
 /* Utility: subtle focus ring for keyboard users */
 :focus{outline:none}
 :focus-visible{outline:3px solid rgba(0,91,172,0.22);outline-offset:3px;border-radius:8px}
+
+/* ==================================
+   NO RESULTS / EMPTY STATE
+   (Available Trainings search — matches brand palette & motion system)
+================================== */
+.no-results{
+  display:none;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:64px 20px 54px;
+  grid-column:1/-1;
+  animation:fadeUp .4s var(--ease) both;
+}
+.no-results svg{
+  width:60px;
+  height:60px;
+  color:var(--accent);
+  margin-bottom:18px;
+}
+.no-results p{
+  font-family:var(--font-display);
+  font-weight:700;
+  font-size:var(--fs-lg);
+  color:var(--accent-dark);
+  margin:0 0 6px;
+}
+.no-results span{
+  font-family:var(--font-body);
+  font-size:var(--fs-sm);
+  color:var(--muted);
+}

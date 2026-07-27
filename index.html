@@ -26,7 +26,7 @@
 
     <div class="logo">
 
-     <img src="aai-logo.png" alt="AAI Logo" class="logo-img">
+     <img src="./aai-logo.png" alt="AAI Logo" class="logo-img">
 
 
         <div>
@@ -59,64 +59,91 @@
 
 </header>
 
-<!-- ================= HERO ================= -->
-
-<section class="hero">
-
-    <div class="overlay">
-
-        <h1>
-
-            Airports Authority of India
-
-        </h1>
-
-        <h3>
-
-            Centralized Training Management Portal
-
-        </h3>
-
-        <p>
-
-            Training • Nomination • Approval • Certificates • Reports
-
-        </p>
-
-    </div>
-
-</section>
-
 <!-- ================= LOGIN ================= -->
 
 <section id="loginPage">
+<div class="auth-shell">
 
-<div class="login-card">
+  <aside class="brand-panel">
+    <div class="radar">
+      <div class="radar-ring r1"></div>
+      <div class="radar-ring r2"></div>
+      <div class="radar-ring r3"></div>
+      <div class="radar-crosshair"></div>
+      <svg class="flight-path" viewBox="0 0 260 260">
+        <path d="M32,150 C70,45 190,45 228,150 C190,255 70,255 32,150 Z"/>
+      </svg>
+      <div class="radar-sweep"></div>
+      <div class="radar-blip b1"></div>
+      <div class="radar-blip b2"></div>
+      <svg class="plane" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2L13.6 9.4L21 12L13.6 14.6L12 22L10.4 14.6L3 12L10.4 9.4L12 2Z" fill="currentColor"/>
+      </svg>
+    </div>
 
-<h2>Employee Login</h2>
+    <div class="brand-copy">
+      <span class="eyebrow">AIRPORTS AUTHORITY OF INDIA</span>
+      <h1>Training Management System</h1>
+      <p>ATSEP & Operations training portal — secure staff and administrator access.</p>
+    </div>
 
-<p style="font-family: 'Poppins', sans-serif; font-size: 12px; color: #5a5a5a; text-align: center;">
-  Login with your Employee Code and Password
-</p>
+    <div class="status-row">
+      <span class="status-dot"></span>
+      SYSTEM STATUS: OPERATIONAL
+    </div>
+  </aside>
 
-<input
-type="text"
-id="emp_code"
-placeholder="Employee Code">
+  <main class="form-panel-wrap">
+    <div class="login-card">
 
-<input
-type="password"
-id="password"
-placeholder="Password">
+      <span class="login-eyebrow">SECURE ACCESS</span>
 
-<button onclick="employeeLogin()">Login</button>
+      <h2 id="cardTitle">Employee Login</h2>
 
-<p style="font-family: 'Poppins', sans-serif; font-size: 12px; color: #5a5a5a; text-align: center; margin-top: 10px;">
-  <a href="#" onclick="adminLogin()">Login as Administrator</a>
-</p>
+      <p id="cardSubtitle">Login with your Employee Code and Password</p>
+
+      <div class="segmented" id="tabSwitcher">
+        <div class="segmented-highlight" id="segHighlight"></div>
+        <button type="button" class="seg-btn active" id="tabEmployee" onclick="switchTab('employee')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="16" height="18" rx="2"/><circle cx="12" cy="10" r="2.4"/><path d="M8 17c0-2.2 1.8-3.4 4-3.4s4 1.2 4 3.4"/></svg>
+          Employee
+        </button>
+        <button type="button" class="seg-btn" id="tabAdmin" onclick="switchTab('admin')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3z"/><path d="M9.5 12l1.8 1.8L14.8 10"/></svg>
+          Admin
+        </button>
+      </div>
+
+      <div class="form-panel active" id="employeePanel">
+
+        <label class="field-label" for="emp_code">EMPLOYEE CODE</label>
+        <input type="text" id="emp_code" placeholder="e.g. 46382967">
+
+        <label class="field-label" for="password">PASSWORD</label>
+        <input type="password" id="password" placeholder="••••••••">
+
+        <button onclick="handleEmployeeLogin(this)">Login <span class="btn-arrow">→</span></button>
+
+      </div>
+
+      <div class="form-panel" id="adminPanel">
+
+        <label class="field-label" for="admin_code">ADMIN ID</label>
+        <input type="text" id="admin_code" placeholder="e.g. 61963287">
+
+        <label class="field-label" for="admin_password">PASSWORD</label>
+        <input type="password" id="admin_password" placeholder="••••••••">
+
+        <button onclick="handleAdminLogin(this)">Login <span class="btn-arrow">→</span></button>
+
+      </div>
+
+      <p class="login-footnote">Airports Authority of India · Internal Use Only</p>
+
+    </div>
+  </main>
 
 </div>
-
 </section>
 
 <!-- ================= EMPLOYEE DASHBOARD ================= -->
@@ -134,6 +161,7 @@ Employee Dashboard
 
 </h2>
 
+
 <div id="welcomeUser">
 
 Welcome
@@ -141,43 +169,76 @@ Welcome
 </div>
 
 </div>
+<button
+class="logout-btn"
+onclick="logout()"
+style="
+display:block;
+margin-left:auto;
+margin-right:75px;
+margin-top:10px;
+margin-bottom: 20px;
+">
+
+Logout
+
+</button>
+
+
+
 
 <!-- Profile -->
 
-<div class="profile-card">
+<div class="profile-card profile-card--emp">
 
-<h3>Employee Information</h3>
+  <div class="profile-card__head">
+    <div class="profile-card__title">
+      <span class="profile-card__icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </span>
+      <div>
+        <h3>Employee Information</h3>
+        <span class="profile-card__sub">AAI TMS record</span>
+      </div>
+    </div>
+    <span class="profile-card__status"><i></i>Active</span>
+  </div>
 
-<div class="profile-grid">
+  <div class="profile-grid">
 
-<p><strong>Name</strong></p>
-<p id="Name">-</p>
+    <div class="profile-row">
+      <span class="profile-row__icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </span>
+      <span class="profile-row__label">Name</span>
+      <span class="profile-row__value" id="Name">-</span>
+    </div>
 
-<p><strong>Employee Code</strong></p>
-<p id="employee_id">-</p>
+    <div class="profile-row">
+      <span class="profile-row__icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M8 4v3M16 4v3"/></svg>
+      </span>
+      <span class="profile-row__label">Employee Code</span>
+      <span class="profile-row__value profile-row__value--mono" id="employee_id">-</span>
+    </div>
 
-<p><strong>Designation</strong></p>
-<p id="role">-</p>
+    <div class="profile-row">
+      <span class="profile-row__icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-9M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>
+      </span>
+      <span class="profile-row__label">Designation</span>
+      <span class="profile-row__value" id="role">-</span>
+    </div>
 
-<p><strong>Station</strong></p>
-<p id="Location">-</p>
+    <div class="profile-row">
+      <span class="profile-row__icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+      </span>
+      <span class="profile-row__label">Station</span>
+      <span class="profile-row__value" id="Location">-</span>
+    </div>
 
-</div>
-
-</div>
-
-<!-- Training Calendar -->
-
-<div class="card">
-
-<h3>
-
-Available Trainings
-
-</h3>
-
-<div id="trainingContainer" class="training-grid"></div>
-
+  </div>
 
 </div>
 
@@ -215,17 +276,49 @@ My Applications
 
 </div>
 
-<button
-class="logout-btn"
-onclick="logout()">
+<!-- Training Calendar -->
 
-Logout
+<div class="card">
 
-</button>
+
+    <div class="training-header">
+
+        <h3>
+            Available Trainings
+        </h3>
+
+
+        <input
+        type="text"
+        id="trainingSearch"
+        placeholder="🔍 Search Trainings..."
+        onkeyup="searchTraining()">
+
+    </div>
+
+
+    <div id="trainingContainer" class="training-grid"></div>
+
+    <div id="noTrainingsFound" class="no-results" style="display:none;">
+      <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M32 8L35 26L52 30L35 34L32 52L29 34L12 30L29 26L32 8Z" fill="currentColor" opacity="0.15"/>
+        <path d="M20 44L44 20M22 22h20v20" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
+      </svg>
+      <p>No trainings found</p>
+      <span>Try a different keyword or clear your search</span>
+    </div>
+
+
+</div>
+
+    
+
+
 
 </section>
 
 <!-- ================= ADMIN DASHBOARD ================= -->
+
 
 <section
 id="adminPage"
@@ -246,7 +339,23 @@ Administrator
 
 </div>
 
+
 </div>
+
+<button
+class="logout-btn"
+onclick="logout()"
+style="
+display:block;
+margin-left:auto;
+margin-right:20px;
+margin-top:10px;
+margin-bottom: 20px;
+">
+
+Logout
+
+</button>
 
 <!-- Statistics -->
 
@@ -306,11 +415,20 @@ Administrator
 
 <div class="card">
 
+<div class="training-header">
+
 <h3>
 
 Training Applications
 
 </h3>
+
+<select id="applicationSort" onchange="sortApplicationsByDate(this.value)">
+  <option value="desc">Sort by Date: Newest First</option>
+  <option value="asc">Sort by Date: Oldest First</option>
+</select>
+
+</div>
 
 <table>
 
@@ -350,27 +468,39 @@ Training Applications
 
 <div class="card">
 
-<h3>
+    <div class="training-header">
 
-Training Calendar
+        <h3>
+            Training Calendar
+        </h3>
 
-</h3>
+        <input
+        type="text"
+        id="adminTrainingSearch"
+        placeholder="🔍 Search Trainings..."
+        onkeyup="searchAdminTraining()">
 
-<div
-id="adminTrainingContainer"
-class="training-grid">
+    </div>
+
+    <div
+    id="adminTrainingContainer"
+    class="training-grid">
+
+    </div>
+
+    <div id="noAdminTrainingsFound" class="no-results" style="display:none;">
+      <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M32 8L35 26L52 30L35 34L32 52L29 34L12 30L29 26L32 8Z" fill="currentColor" opacity="0.15"/>
+        <path d="M20 44L44 20M22 22h20v20" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
+      </svg>
+      <p>No trainings found</p>
+      <span>Try a different keyword or clear your search</span>
+    </div>
 
 </div>
 
 </div>
 
-<button
-class="logout-btn"
-onclick="logout()">
-
-Logout
-
-</button>
 
 </section>
 
@@ -421,6 +551,71 @@ Developed by Team_AS
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script src="script.js"></script>
+
+<!-- ================= LOGIN TAB UI (presentation only — does not touch script.js) ================= -->
+<script>
+function positionHighlight(btn){
+  const switcher = document.getElementById('tabSwitcher');
+  const highlight = document.getElementById('segHighlight');
+  const switcherRect = switcher.getBoundingClientRect();
+  const btnRect = btn.getBoundingClientRect();
+  highlight.style.width = btnRect.width + 'px';
+  highlight.style.transform = 'translateX(' + (btnRect.left - switcherRect.left - 4) + 'px)';
+}
+
+function switchTab(which){
+  const empBtn = document.getElementById('tabEmployee');
+  const adminBtn = document.getElementById('tabAdmin');
+  const empPanel = document.getElementById('employeePanel');
+  const adminPanel = document.getElementById('adminPanel');
+  const title = document.getElementById('cardTitle');
+  const subtitle = document.getElementById('cardSubtitle');
+
+  if(which === 'admin'){
+    adminBtn.classList.add('active');
+    empBtn.classList.remove('active');
+    empPanel.classList.remove('active');
+    adminPanel.classList.add('active');
+    title.textContent = 'Admin Login';
+    subtitle.textContent = 'Login with your Admin ID and Password';
+    positionHighlight(adminBtn);
+  } else {
+    empBtn.classList.add('active');
+    adminBtn.classList.remove('active');
+    adminPanel.classList.remove('active');
+    empPanel.classList.add('active');
+    title.textContent = 'Employee Login';
+    subtitle.textContent = 'Login with your Employee Code and Password';
+    positionHighlight(empBtn);
+  }
+}
+
+// Thin wrappers around the real auth functions in script.js — only handle the
+// button spinner state, never touch the Supabase/login logic itself.
+async function handleEmployeeLogin(btn){
+  btn.classList.add('is-loading');
+  try {
+    await employeeLogin();
+  } finally {
+    btn.classList.remove('is-loading');
+  }
+}
+
+async function handleAdminLogin(btn){
+  btn.classList.add('is-loading');
+  try {
+    await adminLogin();
+  } finally {
+    btn.classList.remove('is-loading');
+  }
+}
+
+window.addEventListener('load', () => positionHighlight(document.getElementById('tabEmployee')));
+window.addEventListener('resize', () => {
+  const active = document.querySelector('.seg-btn.active');
+  if(active) positionHighlight(active);
+});
+</script>
 
 </body>
 
